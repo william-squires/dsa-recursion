@@ -107,7 +107,7 @@ function findIndex(arr, val) {
   if (arr.length === 0){
     return -1;
   } else{
-    console.log("arr[arr.length - 1]=", arr[arr.length - 1], "val=", val);
+    // console.log("arr[arr.length - 1]=", arr[arr.length - 1], "val=", val);
     if (arr[arr.length - 1] === val){
       if (findIndex(arr.slice(0, arr.length -1), val ) !== -1){
         return findIndex(arr.slice(0, arr.length -1), val );
@@ -120,10 +120,24 @@ function findIndex(arr, val) {
   }
 }
 
-/** gatherStrings: given an object, return an array of all of the string values. */
+/** gatherStrings: given an object, return an array of all of the string values.
+ *
+*/
 
 function gatherStrings(obj) {
-
+  //iterate over keys in object
+  // if val is obj, call gatherStrings on val
+  //else, if val is a string, push to array
+  //return array
+  const arr =[];
+  for (const key in obj) {
+    if (typeof(obj[key]) === "object") {
+      arr.push(...gatherStrings(obj[key]));
+    } else if (typeof(obj[key]) === "string") {
+      arr.push(obj[key]);
+    }
+  }
+  return arr;
 }
 
 // FURTHER STUDY
@@ -132,7 +146,19 @@ function gatherStrings(obj) {
  * return true if val is in array, false if not present). */
 
 function binarySearch(arr, val) {
-
+  const middle = Math.floor(arr.length / 2);
+  if (arr.length === 0) {
+    return false;
+  }
+  if (arr[middle] === val) {
+    return true;
+  } else if (arr[middle] > val) {
+    console.log("Arr[middle] > val")
+    return binarySearch(arr.slice(0, middle), val);
+  } else if (arr[middle] < val) {
+    console.log("Arr[middle] < val")
+    return binarySearch(arr.slice(middle + 1, arr.length), val);
+  }
 }
 
 
