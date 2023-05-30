@@ -93,10 +93,31 @@ function revString(str) {
 
 }
 
-/** findIndex: return the index of val in arr (or -1 if val is not present). */
+/** findIndex: return the index of val in arr (or -1 if val is not present).
+ * val = 1 arr = [] return -1
+ * val = 1 arr = [1] return 0
+ * val = 1
+ *
+ * [1]
+ * [2]
+ * [3]
+*/
 
 function findIndex(arr, val) {
-
+  if (arr.length === 0){
+    return -1;
+  } else{
+    console.log("arr[arr.length - 1]=", arr[arr.length - 1], "val=", val);
+    if (arr[arr.length - 1] === val){
+      if (findIndex(arr.slice(0, arr.length -1), val ) !== -1){
+        return findIndex(arr.slice(0, arr.length -1), val );
+      } else{
+        return arr.length - 1;
+      }
+    } else {
+      return findIndex(arr.slice(0, arr.length -1), val );
+    }
+  }
 }
 
 /** gatherStrings: given an object, return an array of all of the string values. */
