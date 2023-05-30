@@ -163,21 +163,38 @@ function binarySearch(arr, val) {
 /** binarySearch: given a sorted array of numbers, and a value,
  * return the index of that value (or -1 if val is not present). */
 
-function binarySearchIndex(arr, val, left=0, right=arr.length) {
-  if (left > right){
-    return -1;
-  }
-  if (arr.length===0) return -1;
-  const middle = Math.floor((left + right) / 2);
-  console.log(middle);
-  if (arr[middle] === val) {
+// function binarySearchIndex(arr, val, left=0, right=arr.length) {
+  // if (left > right){
+  //   return -1;
+  // }
+  // if (arr.length===0) return -1;
+  // const middle = Math.floor((left + right) / 2);
+  // console.log(middle);
+  // if (arr[middle] === val) {
+  //   return middle;
+  // } else if (arr[middle] > val) {
+  //   return binarySearchIndex(arr, val, left, middle - 1);
+  // }
+  //   return binarySearchIndex(arr, val, middle + 1, right);
+// }
+
+function binarySearchIndex(arr, val) {
+  const middle = Math.floor(arr.length / 2);
+  if (arr.length === 0) return -1;
+  const found =  arr[middle] > val
+  ? binarySearchIndex(arr.slice(0, middle), val)
+  : binarySearchIndex(arr.slice(middle + 1, arr.length), val)
+  if ( arr[middle] === val) {
     return middle;
-  } else if (arr[middle] > val) {
-    return binarySearchIndex(arr, val, left, middle - 1);
   }
-    return binarySearchIndex(arr, val, middle + 1, right);
+  if (found === -1) return -1;
+  if (arr[middle] > val) {
+     return middle - found - 1;
+  } else {
+    return middle + found + 1
+  }
 }
-binarySearchIndex([1,2,3],2);
+
 // you might find the above two problems easier if you change the function signature to:
 //
 // function binarySearch(arr, val, left = 0, right = arr.length) {
