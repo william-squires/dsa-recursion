@@ -163,19 +163,19 @@ function binarySearch(arr, val) {
 /** binarySearch: given a sorted array of numbers, and a value,
  * return the index of that value (or -1 if val is not present). */
 
-function binarySearchIndex(arr, val) {
-  const middle = Math.floor(arr.length / 2);
-  console.log(middle);
-  if (arr.length === 0) {
+function binarySearchIndex(arr, val, left=0, right=arr.length) {
+  if (left > right){
     return -1;
   }
+  if (arr.length===0) return -1;
+  const middle = Math.floor((left + right) / 2);
+  console.log(middle);
   if (arr[middle] === val) {
     return middle;
   } else if (arr[middle] > val) {
-    return binarySearchIndex(arr.slice(0, middle), val);
-  } else if (arr[middle] < val) {
-    return binarySearchIndex(arr.slice(middle + 1, arr.length), val);
+    return binarySearchIndex(arr, val, left, middle - 1);
   }
+    return binarySearchIndex(arr, val, middle + 1, right);
 }
 binarySearchIndex([1,2,3],2);
 // you might find the above two problems easier if you change the function signature to:
